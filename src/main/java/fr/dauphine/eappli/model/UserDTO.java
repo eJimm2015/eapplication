@@ -67,5 +67,11 @@ public class UserDTO {
                 ", confirm='" + confirm + '\'' +
                 '}';
     }
+
+    public ApplicationUser toDomainObject(){
+        return new ApplicationUser()
+                .setPassword(password)
+                .setUsername(username);
+    }
 }
 

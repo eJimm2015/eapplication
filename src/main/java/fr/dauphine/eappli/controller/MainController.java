@@ -2,7 +2,8 @@ package fr.dauphine.eappli.controller;
 
 
 import fr.dauphine.eappli.model.UserDTO;
-import org.apache.catalina.User;
+import fr.dauphine.eappli.service.ServiceProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,15 @@ import javax.validation.Valid;
 @Controller
 public class MainController {
 
+    @Autowired
+    private ServiceProvider provider;
+
+    @GetMapping("/login")
+    public ModelAndView login(){
+        return new ModelAndView("login");
+    }
+
+
     @GetMapping("/subscribe")
     public ModelAndView subscribe(){
         ModelAndView modelAndView = new ModelAndView("subscribe");
@@ -25,7 +35,7 @@ public class MainController {
     @PostMapping("/subscribe")
     public String subscription(@ModelAttribute("user") @Valid UserDTO user, BindingResult result){
         if(result.hasErrors()) return "subscribe";
-     //   serviceProvider.addUser(user);
+        provider.addUser(user.toDomainObject());
         return "redirect:subscribe?good";
     }
 }
