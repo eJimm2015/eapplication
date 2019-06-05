@@ -1,10 +1,13 @@
 package fr.dauphine.eappli.model;
 
+import fr.dauphine.eappli.utils.PasswordMatch;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
+@PasswordMatch
 public class UserDTO {
 
     @Email(message = "Veuillez renseigner un email valide")
