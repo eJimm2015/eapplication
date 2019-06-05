@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Standard Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8" />
+    <!-- Site Properties -->
+    <title>Inscription</title>
+    <link rel="stylesheet" type="text/css" href="assets/semantic.css" />
+    <script type="text/javascript" src="assets/jquery.js"></script>
+    <script type="text/javascript" src="assets/semantic.js"></script>
+
+    <style type="text/css">
+
+        .Site {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .Site-content {
+
+            min-height: 100vh;
+            flex : 1;
+        }
+
+        body, body.pushable > .pusher {
+            background-color: #DADADA;
+        }
+        /*     body > .grid {
+              min-height: 100%;
+            } */
+        .column {
+            max-width: 500px;
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+
+
+
+<body>
+<div class="pusher Site">
+    <div class="ui vertical very padded segment"></div>
+    <div class="ui middle aligned center aligned grid container Site-content">
+        <div class="ui column">
+            <h2 class="ui teal header">Inscription</h2>
+            <form class="ui form" method="POST" action="/subscribe" th:object="${user}">
+                <div class="ui stacked segment">
+                    <div th:class="${#fields.hasErrors('username') ? 'field error' : 'field'}">
+                        <div class="ui left icon input">
+                            <i class="mail icon"></i>
+                            <input type="text" name="username" placeholder="Email" th:field="*{username}" />
+                        </div>
+                    </div>
+                    <div th:class="${#fields.hasErrors('password') ? 'field error' : 'field'}">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" name="password" th:field="*{password}" placeholder="Mot de passe" />
+                        </div>
+                    </div>
+                    <div th:class="${#fields.hasErrors('confirm') ? 'field error' : 'field'}">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input type="password" name="confirm" th:field="*{confirm}" placeholder="Confirmer mot de passe"  />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <button type="submit" class="ui fluid large teal button">S'inscrire</button>
+                    </div>
+                </div>
+                <div th:if="${#fields.hasErrors('*')}" class="ui negative message">
+                    <div class="header">
+                        Erreur d'inscription
+                    </div>
+                    <ul>
+                        <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </form>
+            <div th:if="${param.good}" class="ui positive message">Inscription réussie</div>
+            <div class="ui message">
+                <span>Déjà inscrit ? </span> <a href="/login">Se connecter</a>
+            </div>
+        </div>
+    </div>
+    <div class="ui vertical padded segment"></div>
+</div>
+</body>
+</html>
+
